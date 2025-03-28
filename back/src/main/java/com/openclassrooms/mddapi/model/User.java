@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "t_user")
@@ -23,4 +24,12 @@ public class User {
 
     @Column(name = "username")
     private String username;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_topic",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "topic_id")
+    )
+    private List<Topic> subscribedTopics;
 }
