@@ -1,7 +1,7 @@
 package com.openclassrooms.mddapi.controller;
 
-import com.openclassrooms.mddapi.DTO.LoginRequest;
-import com.openclassrooms.mddapi.DTO.RegisterRequest;
+import com.openclassrooms.mddapi.DTO.LoginDTO;
+import com.openclassrooms.mddapi.DTO.RegisterDTO;
 import com.openclassrooms.mddapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,14 +18,13 @@ public class AuthController {
     private UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody RegisterRequest request){
+    public ResponseEntity<String> register(@RequestBody RegisterDTO request){
         userService.registerUser(request);
         return ResponseEntity.ok("Utilisateur créé avec succès");
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest request) {
-        // @TODO implémenter JWT
+    public ResponseEntity<String> login(@RequestBody LoginDTO request) {
         String token = userService.loginUser(request);
         return ResponseEntity.ok(token);
     }

@@ -1,11 +1,13 @@
 package com.openclassrooms.mddapi.service;
 
-import com.openclassrooms.mddapi.DTO.LoginRequest;
-import com.openclassrooms.mddapi.DTO.RegisterRequest;
-import com.openclassrooms.mddapi.DTO.UserProfileResponse;
+import com.openclassrooms.mddapi.DTO.LoginDTO;
+import com.openclassrooms.mddapi.DTO.RegisterDTO;
+import com.openclassrooms.mddapi.DTO.UserProfileDTO;
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +18,15 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
+    private JWTService jwtService;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public void registerUser(RegisterRequest request) {
+    public void registerUser(RegisterDTO request) {
+        if(userRepository.findByEmail(request.getEmail()) != null){
+            throw new IllegalArgumentException("Utilisateur déjà existant");
+        }
         User user = new User();
         user.setEmail(request.getEmail());
         user.setUsername(request.getUsername());
@@ -26,21 +34,20 @@ public class UserService {
         save(user);
     }
 
-    public String loginUser(LoginRequest request) {
-        // @TODO Implémenter JWT et token
+    public String loginUser(LoginDTO request) {
         User user = userRepository.findByEmail(request.getEmail());
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new RuntimeException("Erreur d'authenfication");
         }
-        return "jwt-token";
+        return jwtService.generateToken(new UsernamePasswordAuthenticationToken(user.getEmail(), null));
     }
 
-    public UserProfileResponse getUserProfile(int userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("Erreur user"));
-        return new UserProfileResponse(user.getEmail(), user.getUsername());
+    public UserProfileDTO getMe(Authentication authentication) {
+        User user = userRepository.findByEmail(authentication.getName());
+        return new UserProfileDTO(user.getEmail(), user.getUsername());
     }
 
-    public void updateUserProfile(int userId, RegisterRequest request) {
+    public void updateUserProfile(int userId, RegisterDTO request) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("Erreur user"));
         user.setEmail(request.getEmail());
         user.setUsername(request.getUsername());
@@ -50,6 +57,14 @@ public class UserService {
 
     public void save(User user) {
         userRepository.save(user);
+    }
+
+    public User findById(int id) {
+        return userRepository.findById(id).orElseThrow();
+    }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
 }

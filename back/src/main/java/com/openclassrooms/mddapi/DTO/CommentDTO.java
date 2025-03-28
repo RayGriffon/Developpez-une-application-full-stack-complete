@@ -5,11 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginRequest {
-    private String email;
-    private String username;
-    private String password;
+public class CommentDTO {
+    private int id;
+    private String content;
+    private LocalDateTime createdAt;
+    private int postId;
 }
