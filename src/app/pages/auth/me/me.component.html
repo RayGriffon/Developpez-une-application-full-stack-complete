@@ -1,0 +1,43 @@
+<div>
+    <div [formGroup]="form">
+        <h1><strong>Profil utilisateur</strong></h1>
+        <mat-form-field appearance="outline">
+            <mat-label>Nom d'utilisateur</mat-label>
+            <input matNativeControl placeholder={{user?.username}} formControlName="username" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matNativeControl placeholder={{user?.email}} formControlName="email" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Mot de passe</mat-label>
+            <input matNativeControl type="password" formControlName="newPassword" />
+        </mat-form-field>
+        <button mat-stroked-button (click)="submit()">Sauvegarder</button>
+        <span *ngIf="onError">{{onError}}</span>
+        <button mat-flat-button (click)="logOut()">Se déconnecter</button>
+    </div>
+    <div>
+        <hr>
+        <p>Abonnements</p>
+    </div>
+        <div *ngFor="let topic of topics">
+            <h2>{{ topic.name }}</h2>
+            <p>{{ topic.description }}</p>
+            <button mat-stroked-button (click)="unsubscribe(topic)">Se désabonner</button>
+        </div>
+    <h1 *ngIf="topics?.length === 0">Aucun thème</h1>
+</div>
+
+<div *ngIf="passPopup">
+    <div>
+        <h1>Changer de mot de passe</h1>
+        <mat-form-field appearance="outline">
+            <mat-label>Mot de passe actuel</mat-label>
+            <input matNativeControl type="password" [(ngModel)]="password" />
+        </mat-form-field>
+        <button mat-stroked-button (click)="valid()">Valider</button>
+        <button mat-stroked-button (click)="cancel()">Annuler</button>
+        <span *ngIf="onError">{{onError}}</span>
+    </div>
+</div>
