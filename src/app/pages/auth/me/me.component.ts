@@ -28,7 +28,7 @@ export class MeComponent implements OnInit, OnDestroy {
   public password: string | null = null;
 
   private subscriptions: Subscription[] = [];
-  private user = this.sessionService.getSession();
+  public user = this.sessionService.getSession();
 
   constructor(
     private router: Router,

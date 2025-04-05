@@ -41,21 +41,22 @@ export class RegisterComponent implements OnDestroy {
 
   submit(): void {
     this.onError = '';
-
+  
     if (!this.form.valid) {
-      this.onError = 'Certains champs sont vide ou mal remplis.';
+      this.onError = 'Certains champs sont vides ou mal remplis.';
       return;
     }
-
+  
     const { password } = this.form.value;
     if (!password || !this.isPasswordValid(password)) {
       this.onError = 'Le mot de passe doit faire au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.';
       return;
     }
-
+  
     const registerRequest = this.form.value as RegisterRequest;
-
-    const sub = this.authService.register(registerRequest)
+  
+    let sub: Subscription;
+    sub = this.authService.register(registerRequest)
       .pipe(finalize(() => sub.unsubscribe()))
       .subscribe({
         next: (response: SessionInformation) => {
@@ -67,7 +68,8 @@ export class RegisterComponent implements OnDestroy {
           console.error(error);
         }
       });
-
+  
     this.subscription.add(sub);
   }
+  
 }
