@@ -8,7 +8,8 @@ import lombok.Setter;
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginDTO {
-    private String email;
-    private String password;
+public class CreatePostDTO {
+    private String title;
+    private String content;
+    private int topic;
 }

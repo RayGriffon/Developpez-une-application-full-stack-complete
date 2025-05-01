@@ -4,8 +4,8 @@ import com.openclassrooms.mddapi.DTO.CommentDTO;
 import com.openclassrooms.mddapi.model.Comment;
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repository.CommentRepository;
-import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -32,6 +32,12 @@ public class CommentService {
         comment.setPost(postService.findById(commentDTO.getPostId()));
         comment.setAuthor(user);
         Comment savedComment = commentRepository.save(comment);
+//        return CommentDTO.builder()
+//                .id()
+//                .content()
+//                .createdAt()
+//                .postId()
+//                .build();
         return new CommentDTO(
                 savedComment.getId(),
                 savedComment.getContent(),

@@ -1,5 +1,7 @@
 package com.openclassrooms.mddapi.service;
 
+import com.openclassrooms.mddapi.model.User;
+import com.openclassrooms.mddapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
@@ -18,7 +20,12 @@ public class JWTService {
     @Autowired
     private JwtEncoder jwtEncoder;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public String generateToken(Authentication authentication) {
+        User user = userRepository.findByEmail(authentication.getName());
+
         Instant now = Instant.now();
         JwtClaimsSet claimsSet = JwtClaimsSet.builder()
                 .issuer("self")

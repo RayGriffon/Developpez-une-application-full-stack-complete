@@ -1,10 +1,13 @@
 package com.openclassrooms.mddapi.controller;
 
+import com.openclassrooms.mddapi.DTO.CreatePostDTO;
 import com.openclassrooms.mddapi.DTO.PostDTO;
 import com.openclassrooms.mddapi.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -14,13 +17,19 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-    @GetMapping("/feed/{userId}")
-    public List<PostDTO> getFeed(@PathVariable int userId) {
-        return postService.getNewsFeed(userId);
+    @GetMapping("/feed")
+    public List<PostDTO> getFeed(Principal principal) {
+        return postService.getNewsFeed(principal.getName());
     }
 
     @PostMapping("/create")
-    public void createPost(@RequestParam int userId, @RequestParam int topicId, @RequestParam String title, @RequestParam String content) {
-        postService.createPost(userId, topicId, title, content);
+    public void createPost(@RequestBody CreatePostDTO createPostDTO, Principal principal) {
+        postService.createPost(createPostDTO, principal.getName());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PostDTO> getPostById(@PathVariable int id) {
+        return ResponseEntity.ok(postService.getPostById(id));
+    }
+
 }

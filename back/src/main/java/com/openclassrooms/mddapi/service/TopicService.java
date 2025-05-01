@@ -28,18 +28,28 @@ public class TopicService {
         }).collect(Collectors.toList());
     }
 
-    public void subscribeUserToTopic(int userId, int topicId) {
-        User user = userService.findById(userId);
+    public void subscribeUserToTopic(String email, int topicId) {
+        User user = userService.findByEmail(email);
         Topic topic = topicRepository.findById(topicId).orElseThrow();
         user.getSubscribedTopics().add(topic);
         userService.save(user);
     }
 
-    public void unsubscribeUserFromTopic(int userId, int topicId) {
-        User user = userService.findById(userId);
+    public void unsubscribeUserFromTopic(String email, int topicId) {
+        User user = userService.findByEmail(email);
         Topic topic = topicRepository.findById(topicId).orElseThrow();
         user.getSubscribedTopics().remove(topic);
         userService.save(user);
+    }
+
+    public List<TopicDTO> getSubscribedTopics(String email) {
+        User user = userService.findByEmail(email);
+        return user.getSubscribedTopics().stream().map(topic -> {
+            TopicDTO dto = new TopicDTO();
+            dto.setId(topic.getId());
+            dto.setName(topic.getName());
+            return dto;
+        }).collect(Collectors.toList());
     }
 
     public Topic findById(int id) {

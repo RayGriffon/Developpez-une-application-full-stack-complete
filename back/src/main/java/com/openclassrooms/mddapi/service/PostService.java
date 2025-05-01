@@ -1,6 +1,7 @@
 package com.openclassrooms.mddapi.service;
 
 import com.openclassrooms.mddapi.DTO.CommentDTO;
+import com.openclassrooms.mddapi.DTO.CreatePostDTO;
 import com.openclassrooms.mddapi.DTO.PostDTO;
 import com.openclassrooms.mddapi.model.Post;
 import com.openclassrooms.mddapi.model.Topic;
@@ -25,22 +26,26 @@ public class PostService {
     @Autowired
     private TopicService topicService;
 
-    public List<PostDTO> getNewsFeed(int userId) {
-        User user = userService.findById(userId);
+    public List<PostDTO> getNewsFeed(String email) {
+        User user = userService.findByEmail(email);
         List<Topic> topics = user.getSubscribedTopics();
-        return postRepository.findByTopicInOrderByCreatedAt(topics).stream().map(this::convertToDTO).collect(Collectors.toList());
+        return postRepository.findByTopicInOrderByCreatedAt(topics)
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
-    public void createPost(int userId, int topicId, String title, String content) {
-        User user = userService.findById(userId);
-        Topic topic = topicService.findById(topicId);
-        Post post = new Post();
-        post.setAuthor(user);
-        post.setTopic(topic);
-        post.setTitle(title);
-        post.setContent(content);
-        post.setCreatedAt(LocalDateTime.now());
-        postRepository.save(post);
+
+    public void createPost(CreatePostDTO createPostDTO, String userName) {
+        User user = userService.findByEmail(userName);
+        Topic topic = topicService.findById(createPostDTO.getTopic());
+        Post newPost = new Post();
+        newPost.setAuthor(user);
+        newPost.setTitle(createPostDTO.getTitle());
+        newPost.setContent(createPostDTO.getContent());
+        newPost.setTopic(topic);
+        newPost.setCreatedAt(LocalDateTime.now());
+        postRepository.save(newPost);
     }
 
     private PostDTO convertToDTO(Post post) {
@@ -64,4 +69,10 @@ public class PostService {
     public Post findById(int id) {
         return postRepository.findById(id).orElseThrow();
     }
+
+    public PostDTO getPostById(int id) {
+        Post post = postRepository.findById(id).orElseThrow();
+        return convertToDTO(post);
+    }
+
 }

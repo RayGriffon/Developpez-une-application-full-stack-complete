@@ -44,14 +44,21 @@ public class UserService {
 
     public UserProfileDTO getMe(Authentication authentication) {
         User user = userRepository.findByEmail(authentication.getName());
-        return new UserProfileDTO(user.getEmail(), user.getUsername());
+        return new UserProfileDTO(
+                user.getEmail(),
+                user.getUsername(),
+                user.getId(),
+                user.getSubscribedTopics()
+        );
     }
 
-    public void updateUserProfile(int userId, RegisterDTO request) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("Erreur user"));
-        user.setEmail(request.getEmail());
+
+    public void updateUserProfile(RegisterDTO request, String email) {
+        User user = userRepository.findByEmail(email);
         user.setUsername(request.getUsername());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        if (request.getPassword() != null && !request.getPassword().isBlank()) {
+            user.setPassword(passwordEncoder.encode(request.getPassword()));
+        }
         save(user);
     }
 

@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -21,8 +23,8 @@ public class UserController {
     }
 
     @PutMapping("/profile")
-    public ResponseEntity<String> updateProfile(@RequestParam int userId, @RequestBody RegisterDTO request) {
-        userService.updateUserProfile(userId, request);
+    public ResponseEntity<String> updateProfile(@RequestBody RegisterDTO request, Principal principal) {
+        userService.updateUserProfile(request, principal.getName());
         return ResponseEntity.ok("Profil mis à jour");
     }
 }
