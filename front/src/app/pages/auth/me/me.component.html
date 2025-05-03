@@ -1,0 +1,51 @@
+<div class="profile-section" *ngIf="user">
+    <h2>Profil</h2>
+  
+    <div *ngIf="!editMode">
+      <p><strong>Nom d'utilisateur :</strong> {{ user.username }}</p>
+      <p><strong>Email :</strong> {{ user.email }}</p>
+      <button mat-button (click)="enableEdit()">Modifier</button>
+    </div>
+  
+    <form [formGroup]="form" *ngIf="editMode">
+      <mat-form-field appearance="outline">
+        <mat-label>Nom d'utilisateur</mat-label>
+        <input matInput formControlName="username">
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline">
+        <mat-label>Nouveau mot de passe</mat-label>
+        <input matInput type="password" formControlName="newPassword">
+      </mat-form-field>
+  
+      <div class="form-actions">
+        <button mat-flat-button color="primary" (click)="submit()">Sauvegarder</button>
+        <button mat-stroked-button (click)="cancelEdit()">Annuler</button>
+      </div>
+    </form>
+  
+    <div *ngIf="onError" class="error">{{ onError }}</div>
+  </div>
+  
+  <hr>
+  
+  <div *ngIf="passwordPopup" class="popup">
+    <h3>Confirmation</h3>
+    <p>Veuillez entrer votre mot de passe actuel :</p>
+    <mat-form-field appearance="outline">
+      <mat-label>Mot de passe</mat-label>
+      <input matInput type="password" [(ngModel)]="password">
+    </mat-form-field>
+    <button mat-flat-button color="primary" (click)="confirmPassword()">Valider</button>
+    <button mat-stroked-button (click)="passwordPopup = false">Annuler</button>
+  </div>
+
+  <div class="topics-section">
+    <h2>Vos abonnements</h2>
+    <div *ngIf="topics.length === 0">Aucun abonnement pour le moment.</div>
+    <div *ngFor="let topic of topics">
+      <p>{{ topic.name }}</p>
+      <button mat-button (click)="unsubscribe(topic)">Se désabonner</button>
+    </div>
+  </div>
+  

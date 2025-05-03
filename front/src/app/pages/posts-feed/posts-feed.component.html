@@ -1,0 +1,26 @@
+<div class="posts-header">
+  <a class="create-post-button" routerLink="/create-post">Créer un article</a>
+
+
+  <div class="sort-control" (click)="toggleSort()">
+    Trier par date 
+    <span class="arrow">{{ sortDir === 'asc' ? '↑' : '↓' }}</span>
+  </div>
+</div>
+
+<div class="post-grid">
+  <div class="post" *ngFor="let post of posts" (click)="goToPostDetail(post.id)">
+    <h2>{{ post.title }}</h2>
+    <div class="post-meta">
+      <span class="post-date">{{ post.createdAt | date:'short' }}</span>
+      <span class="post-author">{{ post.author }}</span>
+    </div>
+    <p>{{ post.content }}</p>
+  </div>
+</div>
+
+<div class="pagination">
+  <button (click)="changePage(-1)" [disabled]="currentPage === 0">Précédent</button>
+  <span>Page {{ currentPage + 1 }} / {{ totalPages }}</span>
+  <button (click)="changePage(1)" [disabled]="currentPage + 1 >= totalPages">Suivant</button>
+</div>

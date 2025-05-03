@@ -1,0 +1,25 @@
+<div class="register-container">
+  <a class="back-arrow" routerLink="/">
+    &#8592;
+  </a>
+
+  <img src="/assets/logo_p6.png" alt="Logo MDD" class="logo" />
+
+  <div class="register-form" [formGroup]="loginForm">
+    <h1>Connexion</h1>
+
+    <p>Adresse e-mail</p>
+    <mat-form-field appearance="outline" floatLabel="always">
+      <input matInput formControlName="email" type="email" required />
+    </mat-form-field>
+
+    <p>Mot de passe</p>
+    <mat-form-field appearance="outline" floatLabel="always">
+      <input matInput formControlName="password" type="password" required />
+    </mat-form-field>
+
+    <button class="purple-button" type="submit" [disabled]="loginForm.invalid" (click)="onSubmit()">Se connecter</button>
+
+    <span class="error" *ngIf="errorMessage">{{ errorMessage }}</span>
+  </div>
+</div>

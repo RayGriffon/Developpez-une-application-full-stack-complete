@@ -1,0 +1,25 @@
+<ng-container *ngIf="shouldShowNavbar">
+  <nav class="navbar">
+
+    <div class="navbar__logo" (click)="home()">
+      <img src="/assets/logo_p6.png" alt="Logo MDD" />
+    </div>
+
+      <button class="navbar__burger" (click)="toggleMenu()" aria-label="Menu">
+        ☰
+      </button>
+
+      <div class="navbar__backdrop active" *ngIf="menuOpen" (click)="toggleMenu()"></div>
+
+      <aside class="navbar__links" [class.open]="menuOpen">
+
+        <ng-container *ngIf="isAuthenticated()">
+          <a routerLink="/articles" routerLinkActive="active" (click)="feeds()">Articles</a>
+          <a routerLink="/themes" routerLinkActive="active" (click)="topics()">Thèmes</a>
+          <a routerLink="/me" routerLinkActive="active" (click)="me()">Profil</a>
+          <a href="#" (click)="logout()">Se déconnecter</a>
+        </ng-container>
+      </aside>
+
+  </nav>
+</ng-container>

@@ -8,6 +8,10 @@ import com.openclassrooms.mddapi.model.Topic;
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -26,14 +30,17 @@ public class PostService {
     @Autowired
     private TopicService topicService;
 
-    public List<PostDTO> getNewsFeed(String email) {
+    public Page<PostDTO> getNewsFeed(String email, int page, int size, String sortDir) {
         User user = userService.findByEmail(email);
         List<Topic> topics = user.getSubscribedTopics();
-        return postRepository.findByTopicInOrderByCreatedAt(topics)
-                .stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+
+        Pageable pageable = PageRequest.of(page, size,
+                sortDir.equalsIgnoreCase("asc") ? Sort.by("createdAt").ascending() : Sort.by("createdAt").descending());
+
+        return postRepository.findByTopicIn(topics, pageable)
+                .map(this::convertToDTO);
     }
+
 
 
     public void createPost(CreatePostDTO createPostDTO, String userName) {

@@ -1,0 +1,23 @@
+<div *ngIf="post" class="post-detail">
+    <h2>{{ post.title }}</h2>
+    <p><strong>Auteur :</strong> {{ post.author }}</p>
+    <p><strong>Topic :</strong> {{ post.topic }}</p>
+    <p>{{ post.content }}</p>
+    <small>{{ post.createdAt | date:'short' }}</small>
+  
+    <hr />
+  
+    <h3>Commentaires</h3>
+    <ul>
+      <li *ngFor="let comment of post.comments">
+        <p>{{ comment.content }}</p>
+        <small>{{ comment.createdAt | date:'short' }}</small>
+      </li>
+    </ul>
+  
+    <div class="comment-form">
+      <textarea [(ngModel)]="newComment.content" name="newComment" placeholder="Ajouter un commentaire..."></textarea>
+      <button (click)="addComment()" [disabled]="!newComment.content">Commenter</button>
+    </div>
+  </div>
+  

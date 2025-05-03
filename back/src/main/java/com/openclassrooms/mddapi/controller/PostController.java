@@ -4,6 +4,7 @@ import com.openclassrooms.mddapi.DTO.CreatePostDTO;
 import com.openclassrooms.mddapi.DTO.PostDTO;
 import com.openclassrooms.mddapi.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,9 +19,15 @@ public class PostController {
     private PostService postService;
 
     @GetMapping("/feed")
-    public List<PostDTO> getFeed(Principal principal) {
-        return postService.getNewsFeed(principal.getName());
+    public Page<PostDTO> getFeed(
+            Principal principal,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "desc") String sortDir
+    ) {
+        return postService.getNewsFeed(principal.getName(), page, size, sortDir);
     }
+
 
     @PostMapping("/create")
     public void createPost(@RequestBody CreatePostDTO createPostDTO, Principal principal) {

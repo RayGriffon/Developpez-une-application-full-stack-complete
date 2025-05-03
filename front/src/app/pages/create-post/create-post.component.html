@@ -1,0 +1,20 @@
+<form (ngSubmit)="createPost()" #postForm="ngForm">
+  <div>
+    <label for="title">Titre</label>
+    <input type="text" id="title" [(ngModel)]="newPost.title" name="title" required />
+  </div>
+
+  <div>
+    <label for="content">Contenu</label>
+    <textarea id="content" [(ngModel)]="newPost.content" name="content" required></textarea>
+  </div>
+
+  <div>
+    <label for="topic">Sujet</label>
+    <select [(ngModel)]="topicId" name="topic" required>
+      <option *ngFor="let topic of topics" [value]="topic.id">{{ topic.name }}</option>
+    </select>
+  </div>
+
+  <button type="submit" [disabled]="postForm.invalid">Publier</button>
+</form>

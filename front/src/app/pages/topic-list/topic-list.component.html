@@ -1,0 +1,8 @@
+<div class="topic-grid">
+  <div class="topic" *ngFor="let topic of topics">
+    <span>{{ topic.name }}</span>
+    <button class="subscribe-button" (click)="toggleFollow(topic)">
+      {{ isSubscribed(topic) ? 'Se désabonner' : 'S\'abonner' }}
+    </button>
+  </div>
+</div>

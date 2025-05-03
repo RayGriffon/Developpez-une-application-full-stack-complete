@@ -1,7 +1,38 @@
-.center {
-  height: 100vh;
+.home {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  &__logo {
+    width: 26vw;
+    margin-bottom: 2rem;
+    padding-top: 5vw;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 2rem;
+
+    button {
+      min-width: 120px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    &__logo {
+      width: 60vw;
+    }
+
+    &__actions {
+      flex-direction: column;
+      width: 100%;
+
+      button {
+        width: 50%;
+        margin-left: 25%;
+      }
+    }
+  }
 }

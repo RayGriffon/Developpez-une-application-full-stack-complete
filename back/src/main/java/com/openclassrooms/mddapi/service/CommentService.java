@@ -42,7 +42,8 @@ public class CommentService {
                 savedComment.getId(),
                 savedComment.getContent(),
                 savedComment.getCreatedAt(),
-                savedComment.getPost().getId()
+                savedComment.getPost().getId(),
+                savedComment.getAuthor().getUsername()
         );
     }
 
@@ -52,7 +53,8 @@ public class CommentService {
                         comment.getId(),
                         comment.getContent(),
                         comment.getCreatedAt(),
-                        comment.getPost().getId()
+                        comment.getPost().getId(),
+                        comment.getAuthor().getUsername()
                 )
         ).collect(Collectors.toList());
     }
