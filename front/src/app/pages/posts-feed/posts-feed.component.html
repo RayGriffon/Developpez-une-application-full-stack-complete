@@ -15,12 +15,12 @@
       <span class="post-date">{{ post.createdAt | date:'short' }}</span>
       <span class="post-author">{{ post.author }}</span>
     </div>
-    <p>{{ post.content }}</p>
+    <p>{{ post.content.length > 300 ? (post.content | slice:0:300) + '...' : post.content }}</p>
   </div>
 </div>
 
 <div class="pagination">
-  <button (click)="changePage(-1)" [disabled]="currentPage === 0">Précédent</button>
+  <button class="purple-button" (click)="changePage(-1)" [disabled]="currentPage === 0">Précédent</button>
   <span>Page {{ currentPage + 1 }} / {{ totalPages }}</span>
-  <button (click)="changePage(1)" [disabled]="currentPage + 1 >= totalPages">Suivant</button>
+  <button class="purple-button" (click)="changePage(1)" [disabled]="currentPage + 1 >= totalPages">Suivant</button>
 </div>

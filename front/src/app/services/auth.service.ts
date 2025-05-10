@@ -25,10 +25,6 @@ export class AuthService {
     return this.http.post(`/api/auth/register`, req, { responseType: 'text' });
   }
 
-  login(req: LoginRequest): Observable<SessionInformation> {
-    return this.http.post<SessionInformation>(`/api/auth/login`, req);
-  }
-
   update(req: UpdateRequest): Observable<SessionInformation> {
     return this.http.put<SessionInformation>(`/api/user/profile`, req);
   }

@@ -1,20 +1,28 @@
-<form (ngSubmit)="createPost()" #postForm="ngForm">
-  <div>
-    <label for="title">Titre</label>
-    <input type="text" id="title" [(ngModel)]="newPost.title" name="title" required />
-  </div>
+<div class="create-post-container">
+  <a class="back-arrow" routerLink="/feed">
+    &#8592;
+  </a>
 
-  <div>
-    <label for="content">Contenu</label>
-    <textarea id="content" [(ngModel)]="newPost.content" name="content" required></textarea>
-  </div>
+  <form class="create-post-form" #postForm="ngForm" (ngSubmit)="createPost()">
+    <h1>Créer un nouvel article</h1>
 
-  <div>
-    <label for="topic">Sujet</label>
-    <select [(ngModel)]="topicId" name="topic" required>
-      <option *ngFor="let topic of topics" [value]="topic.id">{{ topic.name }}</option>
-    </select>
-  </div>
+    <p>Sujet</p>
+    <mat-form-field appearance="outline" floatLabel="never">
+      <mat-select [(ngModel)]="topicId" name="topic" required placeholder="Selectionner un nouvel article">
+        <mat-option *ngFor="let topic of topics" [value]="topic.id">{{ topic.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <button type="submit" [disabled]="postForm.invalid">Publier</button>
-</form>
+    <p>Titre</p>
+    <mat-form-field appearance="outline" floatLabel="never">
+      <input matInput [(ngModel)]="newPost.title" name="title" required placeholder="Titre de l'article" />
+    </mat-form-field>
+
+    <p>Contenu</p>
+    <mat-form-field appearance="outline" floatLabel="never">
+      <textarea matInput [(ngModel)]="newPost.content" name="content" required placeholder="Contenu de l'article"></textarea>
+    </mat-form-field>
+
+    <button class="purple-button" type="submit" [disabled]="postForm.invalid">Créer</button>
+  </form>
+</div>

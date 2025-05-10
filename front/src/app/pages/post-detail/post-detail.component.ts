@@ -14,6 +14,7 @@ import { PostService } from 'src/app/services/post.service';
 export class PostDetailComponent implements OnInit {
   postId!: number;
   post?: Post;
+  comments: Comment[] = [];
   newComment: Partial<Comment> = {
     content: '',
     postId: 0
@@ -28,14 +29,25 @@ export class PostDetailComponent implements OnInit {
   ngOnInit(): void {
     this.postId = +this.route.snapshot.paramMap.get('id')!;
     this.loadPost();
+    this.loadComments();
   }
 
   loadPost(): void {
     this.postService.getPostById(this.postId).subscribe({
       next: (post) => {
         this.post = post;
+        this.newComment.postId = this.postId;
       },
       error: (err) => console.error('Erreur récupération post :', err)
+    });
+  }
+
+  loadComments(): void {
+    this.commentService.getByPost(this.postId).subscribe({
+      next: (comments) => {
+        this.comments = comments;
+      },
+      error: (err) => console.error('Erreur récupération commentaires :', err)
     });
   }
 
@@ -44,10 +56,10 @@ export class PostDetailComponent implements OnInit {
       content: this.newComment.content!,
       postId: this.postId
     };
-  
+
     this.commentService.addComment(commentDTO as Comment).subscribe({
       next: (comment) => {
-        this.post?.comments.push(comment);
+        this.comments.push(comment);
         this.newComment.content = '';
       },
       error: (err) => console.error('Erreur ajout commentaire :', err)

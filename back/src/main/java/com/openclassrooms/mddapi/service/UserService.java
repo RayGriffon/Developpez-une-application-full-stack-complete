@@ -2,6 +2,7 @@ package com.openclassrooms.mddapi.service;
 
 import com.openclassrooms.mddapi.DTO.LoginDTO;
 import com.openclassrooms.mddapi.DTO.RegisterDTO;
+import com.openclassrooms.mddapi.DTO.UpdateDTO;
 import com.openclassrooms.mddapi.DTO.UserProfileDTO;
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repository.UserRepository;
@@ -52,22 +53,24 @@ public class UserService {
         );
     }
 
+  public void updateUserProfile(UpdateDTO request, String email) {
+    User user = userRepository.findByEmail(email);
 
-    public void updateUserProfile(RegisterDTO request, String email) {
-        User user = userRepository.findByEmail(email);
-        user.setUsername(request.getUsername());
-        if (request.getPassword() != null && !request.getPassword().isBlank()) {
-            user.setPassword(passwordEncoder.encode(request.getPassword()));
-        }
-        save(user);
+    if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+      throw new RuntimeException("Mot de passe actuel incorrect.");
     }
 
-    public void save(User user) {
+    user.setUsername(request.getUsername());
+
+    if (request.getNewPassword() != null && !request.getNewPassword().isBlank()) {
+      user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+    }
+
+    userRepository.save(user);
+  }
+
+  public void save(User user) {
         userRepository.save(user);
-    }
-
-    public User findById(int id) {
-        return userRepository.findById(id).orElseThrow();
     }
 
     public User findByEmail(String email) {

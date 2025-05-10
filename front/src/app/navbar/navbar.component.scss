@@ -47,7 +47,6 @@
     pointer-events: auto;
   }
   
-
   @media (max-width: 600px) {
     &__burger {
       display: block;
@@ -80,4 +79,57 @@
       }
     }
   }
+
+  .user-link {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+  
+    .userIcon {
+      height: 1.2em;
+      width: auto;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .navbar__links {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 95vh;
+      width: 45%;
+      max-width: 300px;
+      background-color: #fff;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding: 2rem 1rem;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      z-index: 12;
+      overflow-y: auto;
+  
+      &.open {
+        transform: translateX(0);
+      }
+  
+      a {
+        padding: 1rem 0;
+        width: 100%;
+        text-align: left;
+      }
+  
+      .user-link {
+        align-self: flex-end;
+        margin-top: auto;
+        margin-bottom: 1rem;
+  
+        .userIcon {
+          height: 4em;
+          margin-left: auto;
+        }
+      }
+    }
+  }  
+  
 }

@@ -20,7 +20,7 @@ export class CreatePostComponent implements OnInit {
   topics: Topic[] = [];
   topicId!: number;
 
-  constructor(private http: HttpClient, private router: Router, private topicService: TopicService, private authService: AuthService) {}
+  constructor(private http: HttpClient, private router: Router, private topicService: TopicService) {}
 
   ngOnInit(): void {
     this.topicService.getAll().subscribe(topics => {

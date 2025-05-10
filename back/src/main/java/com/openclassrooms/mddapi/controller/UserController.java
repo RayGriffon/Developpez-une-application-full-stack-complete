@@ -1,6 +1,7 @@
 package com.openclassrooms.mddapi.controller;
 
 import com.openclassrooms.mddapi.DTO.RegisterDTO;
+import com.openclassrooms.mddapi.DTO.UpdateDTO;
 import com.openclassrooms.mddapi.DTO.UserProfileDTO;
 import com.openclassrooms.mddapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class UserController {
     }
 
     @PutMapping("/profile")
-    public ResponseEntity<String> updateProfile(@RequestBody RegisterDTO request, Principal principal) {
+    public ResponseEntity<String> updateProfile(@RequestBody UpdateDTO request, Principal principal) {
         userService.updateUserProfile(request, principal.getName());
         return ResponseEntity.ok("Profil mis à jour");
     }

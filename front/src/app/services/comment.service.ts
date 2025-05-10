@@ -5,8 +5,7 @@ import { Comment } from "../models/comment.model";
 
 @Injectable({ providedIn: 'root' })
 export class CommentService {
-  private api = '/comments';
-
+  
   constructor(private http: HttpClient) {}
 
   addComment(comment: Comment): Observable<Comment> {

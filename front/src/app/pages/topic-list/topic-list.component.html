@@ -1,8 +1,14 @@
 <div class="topic-grid">
   <div class="topic" *ngFor="let topic of topics">
     <span>{{ topic.name }}</span>
-    <button class="subscribe-button" (click)="toggleFollow(topic)">
-      {{ isSubscribed(topic) ? 'Se désabonner' : 'S\'abonner' }}
-    </button>
+    <p class="desc">{{ topic.description }}</p>
+    <button 
+      class="subscribe-button" 
+      [disabled]="isSubscribed(topic)" 
+      [ngClass]="{ 'disabled': isSubscribed(topic) }"
+      (click)="!isSubscribed(topic) && toggleFollow(topic)">
+      {{ isSubscribed(topic) ? 'Déjà abonné' : 'S\'abonner' }}
+  </button>
+
   </div>
 </div>

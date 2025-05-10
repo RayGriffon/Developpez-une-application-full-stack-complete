@@ -24,6 +24,7 @@ public class TopicService {
             TopicDTO dto = new TopicDTO();
             dto.setId(topic.getId());
             dto.setName(topic.getName());
+            dto.setDescription(topic.getDescription());
             return dto;
         }).collect(Collectors.toList());
     }
@@ -48,6 +49,7 @@ public class TopicService {
             TopicDTO dto = new TopicDTO();
             dto.setId(topic.getId());
             dto.setName(topic.getName());
+            dto.setDescription(topic.getDescription());
             return dto;
         }).collect(Collectors.toList());
     }

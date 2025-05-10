@@ -41,8 +41,6 @@ public class PostService {
                 .map(this::convertToDTO);
     }
 
-
-
     public void createPost(CreatePostDTO createPostDTO, String userName) {
         User user = userService.findByEmail(userName);
         Topic topic = topicService.findById(createPostDTO.getTopic());

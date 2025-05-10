@@ -25,8 +25,7 @@ export class RegisterComponent implements OnDestroy {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private authService: AuthService,
-    private sessionService: SessionService
+    private authService: AuthService
   ) {}
 
   ngOnDestroy(): void {

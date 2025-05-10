@@ -5,11 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TopicDTO {
-    private int id;
-    private String name;
-    private String description;
+public class UpdateDTO {
+  private String username;
+  private String password;
+  private String newPassword;
 }

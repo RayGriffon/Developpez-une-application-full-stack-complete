@@ -14,10 +14,12 @@
       <aside class="navbar__links" [class.open]="menuOpen">
 
         <ng-container *ngIf="isAuthenticated()">
+          <a href="#" (click)="logout()" style="color: #A40F0F;">Se déconnecter</a>
           <a routerLink="/articles" routerLinkActive="active" (click)="feeds()">Articles</a>
           <a routerLink="/themes" routerLinkActive="active" (click)="topics()">Thèmes</a>
-          <a routerLink="/me" routerLinkActive="active" (click)="me()">Profil</a>
-          <a href="#" (click)="logout()">Se déconnecter</a>
+          <a routerLink="/me" routerLinkActive="active" (click)="me()" class="user-link">
+            <img src="/assets/utilisateur.png" alt="Profile" class="userIcon" />
+          </a>          
         </ng-container>
       </aside>
 
