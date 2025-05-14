@@ -1,6 +1,5 @@
 package com.openclassrooms.mddapi.controller;
 
-import com.openclassrooms.mddapi.DTO.RegisterDTO;
 import com.openclassrooms.mddapi.DTO.UpdateDTO;
 import com.openclassrooms.mddapi.DTO.UserProfileDTO;
 import com.openclassrooms.mddapi.service.UserService;
@@ -23,9 +22,11 @@ public class UserController {
         return ResponseEntity.ok(userService.getMe(authentication));
     }
 
-    @PutMapping("/profile")
-    public ResponseEntity<String> updateProfile(@RequestBody UpdateDTO request, Principal principal) {
-        userService.updateUserProfile(request, principal.getName());
-        return ResponseEntity.ok("Profil mis à jour");
-    }
+  @PutMapping("/profile")
+  public ResponseEntity<UserProfileDTO> updateProfile(@RequestBody UpdateDTO request, Principal principal) {
+    userService.updateUserProfile(request, principal.getName());
+    UserProfileDTO updatedProfile = userService.getMe(principal.getName());
+    return ResponseEntity.ok(updatedProfile);
+  }
+
 }

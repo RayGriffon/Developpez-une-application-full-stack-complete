@@ -17,25 +17,25 @@ public class Post {
     @Column(name = "id")
     private int id;
 
-  @Lob
-  @Column(name = "content", columnDefinition = "TEXT")
-  private String content;
+    @Lob
+    @Column(name = "content", columnDefinition = "TEXT")
+    private String content;
 
-  @Column(name = "title")
-  private String title;
+    @Column(name = "title")
+    private String title;
 
-  @ManyToOne
-  @JoinColumn(name = "topic_id")
-  private Topic topic;
+    @ManyToOne
+    @JoinColumn(name = "topic_id")
+    private Topic topic;
 
-  @ManyToOne
-  @JoinColumn(name = "author_id")
-  private User author;
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private User author;
 
-  @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-  private List<Comment> comments;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
 
-  @Column(name = "created_at")
-  private LocalDateTime createdAt;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
 }

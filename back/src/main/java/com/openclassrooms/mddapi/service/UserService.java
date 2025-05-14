@@ -53,6 +53,16 @@ public class UserService {
         );
     }
 
+    public UserProfileDTO getMe(String email) {
+      User user = userRepository.findByEmail(email);
+      return new UserProfileDTO(
+        user.getEmail(),
+        user.getUsername(),
+        user.getId(),
+        user.getSubscribedTopics()
+      );
+    }
+
   public void updateUserProfile(UpdateDTO request, String email) {
     User user = userRepository.findByEmail(email);
 
