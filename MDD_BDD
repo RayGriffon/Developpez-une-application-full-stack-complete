@@ -1,0 +1,92 @@
+-- --------------------------------------------------------
+-- Hôte:                         127.0.0.1
+-- Version du serveur:           8.0.42-0ubuntu0.24.04.1 - (Ubuntu)
+-- SE du serveur:                Linux
+-- HeidiSQL Version:             12.10.0.7000
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+-- Listage de la structure de la base pour mdd
+CREATE DATABASE IF NOT EXISTS `mdd` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `mdd`;
+
+-- Listage de la structure de table mdd. t_comment
+CREATE TABLE IF NOT EXISTS `t_comment` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `content` varchar(255) DEFAULT NULL,
+  `created_at` datetime(6) DEFAULT NULL,
+  `author_id` int DEFAULT NULL,
+  `post_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK9rnsdkhm16nmouekdcj8fokcj` (`author_id`),
+  KEY `FKsa3hl9a6mu30dct1jnn2bwvem` (`post_id`),
+  CONSTRAINT `FK9rnsdkhm16nmouekdcj8fokcj` FOREIGN KEY (`author_id`) REFERENCES `t_user` (`id`),
+  CONSTRAINT `FKsa3hl9a6mu30dct1jnn2bwvem` FOREIGN KEY (`post_id`) REFERENCES `t_post` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Les données exportées n'étaient pas sélectionnées.
+
+-- Listage de la structure de table mdd. t_post
+CREATE TABLE IF NOT EXISTS `t_post` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `content` longblob,
+  `created_at` datetime(6) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `author_id` int DEFAULT NULL,
+  `topic_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKhiebhl0u5emgafdi049p5kcli` (`author_id`),
+  KEY `FK8u4cpeppl4ih1odaij5abdua4` (`topic_id`),
+  CONSTRAINT `FK8u4cpeppl4ih1odaij5abdua4` FOREIGN KEY (`topic_id`) REFERENCES `t_topic` (`id`),
+  CONSTRAINT `FKhiebhl0u5emgafdi049p5kcli` FOREIGN KEY (`author_id`) REFERENCES `t_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Les données exportées n'étaient pas sélectionnées.
+
+-- Listage de la structure de table mdd. t_topic
+CREATE TABLE IF NOT EXISTS `t_topic` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `description` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Les données exportées n'étaient pas sélectionnées.
+
+-- Listage de la structure de table mdd. t_user
+CREATE TABLE IF NOT EXISTS `t_user` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Les données exportées n'étaient pas sélectionnées.
+
+-- Listage de la structure de table mdd. user_topic
+CREATE TABLE IF NOT EXISTS `user_topic` (
+  `user_id` int NOT NULL,
+  `topic_id` int NOT NULL,
+  KEY `FKadwdb4qiaqnmi9ub5ubxddckx` (`topic_id`),
+  KEY `FKsexc8b4jk0n0ruwqbsf7m9n43` (`user_id`),
+  CONSTRAINT `FKadwdb4qiaqnmi9ub5ubxddckx` FOREIGN KEY (`topic_id`) REFERENCES `t_topic` (`id`),
+  CONSTRAINT `FKsexc8b4jk0n0ruwqbsf7m9n43` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Les données exportées n'étaient pas sélectionnées.
+
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
