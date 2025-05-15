@@ -14,12 +14,14 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-### Where to start
+### Installation
 
-As you may have seen if you already started the app, a simple home page containing a logo, a title and a button is available. If you take a look at its code (in the `home.component.html`) you will see that an external UI library is already configured in the project.
+Le script pour créer une BDD vide se trouve ici : https://github.com/RayGriffon/Developpez-une-application-full-stack-complete/blob/main/MDD_BDD
+Il s'agit d'une base MySQL utilisant le port 3306
 
-This library is `@angular/material`, it's one of the most famous in the angular ecosystem. As you can see on their docs (https://material.angular.io/), it contains a lot of highly customizable components that will help you design your interfaces quickly.
+Il faut configurer en variable d'environnement les trois données suivantes :
+- Pour la BDD : username (**DB_USERNAME**), password (**DB_PASSWORD**)
+- Pour le token : la secret key (**JWT_SECRET_KEY**)
 
-Note: I recommend to use material however it's not mandatory, if you prefer you can get rid of it.
-
-Good luck!
+Dans le fichier application.properties se trouve les variables configurables suivantes :
+- Le lien vers la base de donnée : **spring.datasource.url**
