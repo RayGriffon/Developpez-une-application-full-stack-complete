@@ -8,17 +8,25 @@ import lombok.Setter;
 
 import java.util.List;
 
+/**
+ * DTO représentant le profil d'un utilisateur connecté.
+ */
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserProfileDTO {
-    private int id;
-    private String email;
-    private String username;
+  /** Identifiant unique de l'utilisateur */
+  private int id;
 
-    public UserProfileDTO(String email, String username, int id, List<Topic> subscribedTopics) {
-        this.email = email;
-        this.username = username;
-        this.id = id;
-    }
+  /** Adresse email de l'utilisateur */
+  private String email;
+
+  /** Nom d'utilisateur */
+  private String username;
+
+  public UserProfileDTO(String email, String username, int id, List<Topic> subscribedTopics) {
+    this.email = email;
+    this.username = username;
+    this.id = id;
+  }
 }

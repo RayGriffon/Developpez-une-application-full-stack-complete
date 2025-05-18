@@ -6,11 +6,14 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+/**
+ * Entité représentant un commentaire dans la base de données.
+ */
 @Entity
 @Table(name = "t_comment")
 @Getter @Setter
 public class Comment {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

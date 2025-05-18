@@ -5,11 +5,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * DTO représentant un sujet (topic) de discussion.
+ */
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class TopicDTO {
-    private int id;
-    private String name;
-    private String description;
+  /** Identifiant unique du sujet */
+  private int id;
+
+  /** Nom du sujet */
+  private String name;
+
+  /** Description détaillée du sujet */
+  private String description;
 }

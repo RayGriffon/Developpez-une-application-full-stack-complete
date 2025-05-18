@@ -6,6 +6,9 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * Entité représentant un utilisateur dans la base de données.
+ */
 @Entity
 @Table(name = "t_user")
 @Getter @Setter

@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
+/**
+ * Service dédié à la génération de tokens JWT pour l'authentification.
+ */
 @Service
 public class JWTService {
 
@@ -23,6 +26,12 @@ public class JWTService {
     @Autowired
     private UserRepository userRepository;
 
+  /**
+   * Génère un token JWT pour l'utilisateur actuellement authentifié.
+   *
+   * @param authentication L'objet d'authentification.
+   * @return Le token JWT sous forme de chaîne.
+   */
     public String generateToken(Authentication authentication) {
         User user = userRepository.findByEmail(authentication.getName());
 

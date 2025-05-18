@@ -7,6 +7,9 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Entité représentant un post dans la base de données.
+ */
 @Entity
 @Table(name = "t_post")
 @Getter @Setter
